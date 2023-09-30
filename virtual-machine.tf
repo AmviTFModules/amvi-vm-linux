@@ -1,37 +1,22 @@
-module "amvi-resource-group" {
-  source = "github.com/AmviTFModules/amvi-resource-group"
-  azure_resource_groups = {
-    dev = {
-      name     = "amvi-dev-rg"
-      location = "East US"
-      tags = {
-        env = "dev"
-      }
-    }
-    sit = {
-      name     = "amvi-sit-rg"
-      location = "East US 2"
-      tags = {
-        env = "sit"
-      }
-    }
-  }
+data "azurerm_resource_group" "this" {
+  name = var.resource_group_name
+  
+}
+
+data "azurerm_subnet" "this" {
+  name                 = var.subnet_name
+  virtual_network_name = var.virtual_network_name
+  resource_group_name  = var.resource_group_name
+  
+}
+
+data "azurerm_virtual_network" "this" {
+  name                = var.virtual_network_name
+  resource_group_name = var.resource_group_name
+  
 }
 
 
-
-
-
-/*
-  name        = each.value.name
-  location    = each.value.location
-  environment = each.value.environment
- */
-
-
-
-
-/*
 resource "azurerm_linux_virtual_machine" "vm" {
   count                 = 2
   name                  = "${var.vmname}-amvi-${env}-${count.index}"
