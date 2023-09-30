@@ -1,3 +1,3 @@
-output "virtual_machine_id" {
-  value = "${data.azurerm_virtual_machine.this.id}"
+output "updated_resource_group_ids" {
+  value = distinct(azurerm_resource_group.this.*.id)
 }
