@@ -46,6 +46,7 @@ variable "linux_vms" {
   description = "Linux VMs"
   type = object({
     instance_count = number
+    size           = string
     start_index    = number
     image_reference = object({
       publisher = string
@@ -60,6 +61,7 @@ variable "linux_vms" {
   })
   default = {
     instance_count = 1
+    size = "Standard_DS1_v2"
     start_index    = 1
     image_reference = {
       publisher = "Canonical"
