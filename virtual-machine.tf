@@ -46,10 +46,10 @@ resource "azurerm_linux_virtual_machine" "this" {
     }
   }
 
-  admin_ssh_key {
+  /*admin_ssh_key {
     username   = var.username
     public_key = file("~/.ssh/id_rsa.pub")
-  }
+  }*/
 
   os_disk {
     caching              = var.linux_vms.os_disk.caching
