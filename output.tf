@@ -1,4 +1,9 @@
-output "vm_public_ip" {
-  description = "Public IP address of the Linux VM"
-  value       = azurerm_linux_virtual_machine.this[0].network_interface_ids[0]
+output "virtual_network_id" {
+  description = "ID of the created virtual network."
+  value       = azurerm_virtual_network.this.id
+}
+
+output "subnet_id" {
+  description = "ID of the created subnet."
+  value       = azurerm_subnet.this.id
 }

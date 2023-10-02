@@ -1,3 +1,4 @@
+
 # Create resource group
 resource "azurerm_resource_group" "this" {
   name     = var.resource_group_name
@@ -44,6 +45,7 @@ resource "azurerm_linux_virtual_machine" "this" {
   admin_username        = var.admin_username
   admin_password        = var.admin_password
   network_interface_ids = [azurerm_network_interface.this[count.index].id]
+  disable_password_authentication = false
 
   dynamic "source_image_reference" {
     for_each = [var.linux_vms.image_reference]
@@ -55,15 +57,22 @@ resource "azurerm_linux_virtual_machine" "this" {
     }
   }
 
-
   os_disk {
     caching              = var.linux_vms.os_disk.caching
     storage_account_type = var.linux_vms.os_disk.storage_account_type
     name                 = format("%s-osdisk%s", var.vm_names[count.index], (var.linux_vms.start_index + count.index))
   }
 
-  computer_name  = "hostname"
+  provisioner "remote-exec" {
+    inline = [
+      "ls -la /tmp",
+    ]
+
+    connection {
+      host     = self.public_ip_address
+      user     = self.admin_username
+      password = self.admin_password
+    }
+  }
 
 }
-
-# Path: variables.tf

@@ -67,7 +67,7 @@ variable "linux_vms" {
   })
   default = {
     instance_count = 1
-    size = "Standard_DS1_v2"
+    size           = "Standard_DS1_v2"
     start_index    = 1
     image_reference = {
       publisher = "Canonical"
