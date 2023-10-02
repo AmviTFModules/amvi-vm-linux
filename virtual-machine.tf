@@ -41,6 +41,8 @@ resource "azurerm_linux_virtual_machine" "this" {
   resource_group_name   = azurerm_resource_group.this.name
   tags                  = var.vm_tags
   size                  = var.linux_vms.size
+  admin_username        = var.admin_username
+  admin_password        = var.admin_password
   network_interface_ids = [azurerm_network_interface.this[count.index].id]
 
   dynamic "source_image_reference" {
@@ -53,11 +55,6 @@ resource "azurerm_linux_virtual_machine" "this" {
     }
   }
 
- admin_ssh_key {
-    username   = var.username
-    public_key = jsondecode(azapi_resource_action.ssh_public_key_gen.output).publicKey
-  }
-
 
   os_disk {
     caching              = var.linux_vms.os_disk.caching
@@ -66,7 +63,7 @@ resource "azurerm_linux_virtual_machine" "this" {
   }
 
   computer_name  = "hostname"
-  admin_username = var.username
+
 }
 
 # Path: variables.tf
