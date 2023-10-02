@@ -21,6 +21,17 @@ resource "azurerm_subnet" "this" {
   address_prefixes     = ["10.0.1.0/24"]
 }
 
+resource "azurerm_public_ip" "this" {
+  name                = "public-ap-amvi"
+  resource_group_name = azurerm_resource_group.this.name
+  location            = azurerm_resource_group.this.location
+  allocation_method   = "Static"
+
+  tags = {
+    environment = "Development"
+  }
+}
+
 resource "azurerm_network_interface" "this" {
   count               = var.linux_vms.instance_count
   name                = format("%s-nic%s", var.vm_names[count.index], (var.linux_vms.start_index + count.index))
