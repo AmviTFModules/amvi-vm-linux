@@ -37,10 +37,6 @@ variable "subnet_name" {
   type        = string
 }
 
-variable "username" {
-  description = "Admin username for the VM"
-  type        = string
-}
 
 variable "admin_username" {
   description = "Admin username for the VM"
