@@ -1,3 +1,4 @@
-output "updated_resource_group_ids" {
-  value = distinct(azurerm_resource_group.this.id)
+output "vm_public_ip" {
+  description = "Public IP address of the Linux VM."
+  value       = azurerm_linux_virtual_machine.example.network_interface_ids[0]
 }
